@@ -4,11 +4,17 @@ from flask import Flask, request, redirect, url_for,render_template
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
+# ocr import
+import pytesseract
+from PIL import Image
+# ocr import end
+
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath('static'))+'/static/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 def allowed_file(filename):
@@ -19,19 +25,19 @@ def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')
+            #flash('No file part')
             return redirect(request.url)
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            flash('No selected file')
+            #flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            #return redirect(url_for('uploaded_file',filename=filename))
+            return url_for('uploaded_file',filename=filename)
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -45,6 +51,33 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+
+
+@app.route('/ocr', methods=['GET', 'POST'])
+def ocr():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            #flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            #flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            img_file_path=os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(img_file_path)
+            #return redirect(url_for('uploaded_file',filename=filename))
+            image = Image.open(img_file_path)
+            image=image.convert('L')
+            text = pytesseract.image_to_string(image, lang='chi_sim')
+            return render_template('ocr.html',text=text)
+    if request.method == 'GET':
+        return render_template('ocr.html')
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -61,9 +94,6 @@ def profile():
 def login():
     return render_template('login.html')
 
-@app.route('/ocr')
-def ocr():
-    return render_template('ocr.html')
 @app.route('/face')
 def face():
     return render_template('face.html')
@@ -78,4 +108,4 @@ def topics():
 def board(board_name):
     return render_template('/board/%s.html' % (board_name))
 if __name__=='__main__':
-    app.run('0.0.0.0')
+    app.run(debug=True,host='0.0.0.0')
