@@ -1,0 +1,66 @@
+<!doctype html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='semanticUI/semantic.min.css') }}">
+<script src="{{ url_for('static', filename='semanticUI/jquery-3.2.1.min.js') }}" ></script>
+<script src="{{ url_for('static', filename='semanticUI/semantic.min.js') }}"></script>
+
+<html>
+    <head>
+       {% if title %}
+           <title>{{ title }} - microblog</title>
+       {% else %}
+           <title></title>
+       {% endif %}
+     </head>
+     <body>
+       <!-- menu -->
+       <div class="ui secondary  menu">
+         <a href="/" class="item active">
+           Home
+         </a>
+         <a href="/topics" class="item">
+           Topics
+         </a>
+         <a href="board/nanopi" class="item">
+           NanoPi
+         </a>
+         <a href="/profile" class="item">
+           Profile
+         </a>
+         <a href="/ocr" class="item">
+           OCR
+         </a>
+         <a href="/face" class="item">
+           face++
+         </a>
+         <a href="/questions" class="item">
+           QA
+         </a>
+         <a href="/about" class="item">
+           About
+         </a>
+
+         <div class="right menu">
+           <div class="item">
+             <div class="ui icon input">
+               <input type="text" placeholder="Search...">
+               <i class="search link icon"></i>
+             </div>
+           </div>
+           <div class="ui big green labeled icon button">
+             <i class="signup icon"></i>
+             发帖
+           </div>
+           <a href="/logout" class="ui item">
+             Logout
+           </a>
+           <a href="/login" class="ui item">
+             Login
+           </a>
+         </div>
+       </div>
+       <!-- menu end -->
+      {% block content %}{% endblock %}
+      <!-- footer -->
+      <!-- footer end -->
+     </body>
+</html>
