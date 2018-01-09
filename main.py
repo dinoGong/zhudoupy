@@ -73,7 +73,7 @@ def ocr():
             file.save(img_file_path)
             #return redirect(url_for('uploaded_file',filename=filename))
             image = Image.open(img_file_path)
-            image=image.convert('L')
+            #image=image.convert('L')
             text = pytesseract.image_to_string(image, lang='chi_sim')
             return render_template('ocr.html',text=text)
     if request.method == 'GET':
