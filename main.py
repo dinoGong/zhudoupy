@@ -4,13 +4,15 @@ from flask import Flask, request, redirect, url_for,render_template
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
+# image
+import numpy as np
+from PIL import Image
+
 # ocr import
 import pytesseract
-from PIL import Image
 # ocr import end
 
 # face import
-from PIL import Image
 import face_recognition
 import cv2
 # face import end
@@ -88,7 +90,15 @@ def ocr():
         return render_template('ocr.html')
 @app.route('/')
 def home():
-    return render_template('index.html')
+    logged=False
+    topics=list()
+    #topic=dict()
+    #topic["title"]="title"
+    #topic["user"]="scott"
+    topics.append({"topic_id":"1","title":"蓝牙温度计，哪个品牌比较好？","author":"xixi","reply_count":138})
+    topics.append({"topic_id":"2","title":"关于蓝牙,CC2541和HC-05选哪个？","author":"xixi","reply_count":10})
+    topics.append({"topic_id":"3","title":"红外线模块怎么玩？","author":"xixi","reply_count":5})
+    return render_template('default.html',title="煮豆",logged=logged,topics=topics)
 
 @app.route('/about')
 def about():
@@ -151,4 +161,4 @@ def topics():
 def board(board_name):
     return render_template('/board/%s.html' % (board_name))
 if __name__=='__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0',port=3000)

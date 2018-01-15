@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-md-9">
+  <div class="topics panel panel-default">
+    <div class="panel-body item-list">
+
+      {%for topic in topics %}
+      <div class="topic media topic-11549">
+        <div class="avatar media-left">
+          <a title="{{ author }}" href="/ycwdaaaa"><img class="media-object avatar-48" src="{{ url_for('static', filename='topics_files/7606.jpg!md') }}" alt=""></a>
+        </div>
+        <div class="infos media-body">
+          <div class="title media-heading">
+            <a title="深度学习基础文章合集" href="/topics/11549">
+              <span class="node">{{ topic.title }}</span>
+              {{ topic.title }}
+            </a>        <i class="fa fa-thumb-tack" title="置顶"></i>
+            <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>
+
+          </div>
+          <div class="info">
+            <a class="user-name" data-name="{{ topic.author }} href="/ycwdaaaa">{{ topic.author }}</a>
+            <span class="hidden-mobile">
+              •
+              Last by <a class="user-name" data-name="onionyao" href="/onionyao">onionyao</a> replied at <abbr class="timeago" title="" rel="twipsy" data-original-title="January 11, 2018">4 days ago</abbr>
+            </span>
+          </div>
+        </div>
+        <div class="count media-right">
+          <a class="state-false" href="/topics/11549#reply">{{ topic.reply_count }}</a>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    <!--
+    <div class="panel-footer clearfix">
+      <ul class="pagination">
+        <li class="active">
+          <a remote="false">1</a>
+        </li>
+        <li>
+          <a rel="next" href="/topics?page=2">2</a>
+        </li>
+        <li>
+          <a href="/topics?page=3">3</a>
+        </li>
+        <li>
+          <a href="/topics?page=4">4</a>
+        </li>
+        <li>
+          <a href="/topics?page=5">5</a>
+        </li>
+        <li class="disabled">
+          <a>…</a>
+        </li>
+        <li>
+          <a href="/topics?page=58">58</a>
+        </li>
+        <li>
+          <a href="/topics?page=59">59</a>
+        </li>
+        <li>
+          <a href="/topics?page=60">60</a>
+        </li>
+        <li class="next">
+          <a rel="next" href="/topics?page=2">Next →</a>
+        </li>
+      </ul>
+    </div>
+  -->
+  </div>
+</div>
+{% endblock %}

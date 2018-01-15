@@ -1,0 +1,124 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- http://www.favicon-generator.org/ -->
+  <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='topics_files/style.css') }}">
+  <script src="{{ url_for('static', filename='topics_files/app.js') }}" type="text/javascript">
+
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="煮豆,硬件,智能硬件,硬件厂商,流程,知识,设备,健康设备,可穿戴设备,智能家居,智能家具,极客">
+  <meta name="description" content="煮豆，是一个极客社区，是设备的评论列表。">
+  {% if title %}
+    <title>{{ title }}</title>
+  {% endif %}
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="no">
+  <meta content="True" name="HandheldFriendly">
+  <link rel="alternate" type="application/rss+xml" title="订阅最新帖" href="/topics/feed">
+  <body class="page-topics" data-controller-name="topics">
+    <div class="header">
+      <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
+        <div class="container">
+          <div class="navbar-header" id="navbar-header" data-turbolinks-permanent="">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse">
+              <span class="sr-only">Toggle</span>
+              <i class="fa fa-reorder"></i>
+            </button>
+            <a href="/" class="navbar-brand"><b>煮豆</b></a>
+          </div>
+          <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <div id="main-nav-menu">
+              <ul class="nav navbar-nav">
+                <li class=""><a href="/jobs">人脸识别</a></li>
+                <li class=""><a href="/jobs">人脸比对</a></li>
+                <li class=""><a href="/msg">消息<span class="badge-new"></span></a></li>
+              </ul>
+            </div>
+          </div>
+
+          {% if logged %}
+          <ul class="nav user-bar navbar-nav navbar-right">
+            <li class="dropdown dropdown-avatar">
+              <a href="/topics#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img class="media-object avatar-32" src="{{ url_for('static', filename='topics_files/64.png') }}" alt="64"> <span class="caret"></span>
+              </a>
+              <button class="navbar-toggle" type="button" data-toggle="dropdown" role="button" aria-expanded="false">
+                <span class="sr-only">Toggle</span>
+                <img class="media-object avatar-32" src="{{ url_for('static', filename='topics_files/64.png') }}" alt="64">
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li class=""><a href="/profile/gpiopi">gpiopi</a></li>
+                <li class="">
+                  <div class="divider"></div>
+                </li>
+                <li class=""><a href="/setting">设置</a></li>
+                <li class=""><div class="divider"></div></li>
+                <li class=""><a rel="nofollow" data-method="delete" href="/sign_out">退出</a></li></ul>
+            </li>
+          </ul>
+          {% else %}
+          <ul class="nav user-bar navbar-nav navbar-right">
+            <li><a href="/account/sign_up">注册</a></li>
+            <li><a href="/account/sign_in">登录</a></li>
+          </ul>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+
+    <div id="main" class="main-container container">
+      <div class="row">
+        <!-- content start-->
+        {% block content %}{% endblock %}
+        <!-- content end-->
+
+        <div class="sidebar col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">新手必读</div>
+            <div class="panel-body">
+              <p>为提高社区质量，防止新人一来就发帖无脑提问，新用户需要达到下面条件才可发帖和提问：</p>
+              <ol style="color:#ad2b2d;">
+                <li>注册时间超过两天</li>
+                <li>
+                  <a href="/setting/face">添加头像</a>
+                </li>
+              </ol>
+            </div>
+            <div class="panel-body">
+              <a class="btn btn-primary btn-block disabled" href="/post_topic">发帖</a>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">关注AI头条公众号</div>
+
+            <ul class="list-group">
+              <li class="list-group-item">
+                <img src="{{ url_for('static', filename='topics_files/qrcode.png') }}" height="100%" width="100%">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" id="footer" data-turbolinks-permanent="">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9">
+            <div class="media">
+              <div class="media-body">
+                <div class="copyright" style="font-size:14px; color:#9CA4A9;margin-top:0px;margin-bottom:5px">www.zhudou.org 煮豆 semioe开源社区 知识平台 设备中心</div>
+                <div class="links" style="margin-top:0px" data-no-turbolink="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </footer>
+  <div class="zoom-overlay"></div>
+</body></html>
